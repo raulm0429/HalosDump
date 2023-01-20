@@ -6,8 +6,6 @@
 #include <string.h>
 #include <TlHelp32.h>
 #include <ProcessSnapshot.h>
-//#include <ntdef.h>
-//#include <winternl.h>
 #include "structs.h"
 #pragma comment (lib, "Dbghelp.lib")
 
