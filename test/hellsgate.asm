@@ -61,4 +61,10 @@
 		ret
 	SysNtWaitForSingleObject ENDP
 
+	GetHeap PROC
+		mov rax, qword ptr GS:[60h]
+		mov rax, qword ptr [rax+30h]
+		ret
+	GetHeap ENDP
+
 end

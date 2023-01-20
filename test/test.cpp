@@ -25,12 +25,14 @@ extern "C" NTSTATUS SysNtCreateFile(PHANDLE FileHandle, ACCESS_MASK DesiredAcces
 
 extern "C" NTSTATUS SysNtWriteFile(HANDLE FileHandle, HANDLE Event, PIO_APC_ROUTINE  ApcRoutine, PVOID ApcContext, PIO_STATUS_BLOCK IoStatusBlock, PVOID Buffer, ULONG Length, PLARGE_INTEGER ByteOffset, PULONG Key);
 
+extern "C" PVOID GetHeap();
+
 typedef void (NTAPI* xxRtlInitUnicodeString)(PUNICODE_STRING, PCWSTR);
 
 //extern "C" NTSTATUS SysNtCreateFile()
 
 // Buffer for saving the minidump
-LPVOID dumpBuffer = HeapAlloc(GetProcessHeap(), HEAP_ZERO_MEMORY, 1024 * 1024 * 75);
+LPVOID dumpBuffer = HeapAlloc(GetHeap(), HEAP_ZERO_MEMORY, 1024 * 1024 * 75);
 DWORD bytesRead = 0;
 
 
