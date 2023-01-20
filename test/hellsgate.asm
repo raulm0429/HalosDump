@@ -67,4 +67,9 @@
 		ret
 	GetHeap ENDP
 
+	CurrentProcess PROC
+		mov rax, qword ptr 0FFFFFFFFFFFFFFFFh
+		ret
+	CurrentProcess ENDP 
+
 end

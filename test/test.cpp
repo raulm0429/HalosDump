@@ -27,6 +27,8 @@ extern "C" NTSTATUS SysNtWriteFile(HANDLE FileHandle, HANDLE Event, PIO_APC_ROUT
 
 extern "C" PVOID GetHeap();
 
+extern "C" HANDLE CurrentProcess();
+
 typedef void (NTAPI* xxRtlInitUnicodeString)(PUNICODE_STRING, PCWSTR);
 
 //extern "C" NTSTATUS SysNtCreateFile()
@@ -111,6 +113,7 @@ BOOL AddSeDebugPrivileges(PVX_TABLE pVxTable) {
 	HellsGate(pVxTable->NtOpenProcess.wSystemCall);
 	status = SysNtOpenProcess(&pHandle, PROCESS_QUERY_INFORMATION, &oa, &cid);
 	
+	HANDLE hAsm = CurrentProcess();
 
 	// Get the token handle with query information and adjust privileges access
 	HANDLE hTok = INVALID_HANDLE_VALUE;
