@@ -1,0 +1,64 @@
+; Hell's Gate
+; Dynamic system call invocation 
+; 
+; by smelly__vx (@RtlMateusz) and am0nsec (@am0nsec)
+
+.data
+	wSystemCall DWORD 000h
+
+.code 
+	HellsGate PROC
+		mov wSystemCall, 000h
+		mov wSystemCall, ecx
+		ret
+	HellsGate ENDP
+
+	SysNtOpenProcess PROC
+		mov r10, rcx
+		mov eax, wSystemCall
+
+		syscall
+		ret
+	SysNtOpenProcess ENDP
+
+	SysNtOpenProcessToken PROC
+		mov r10, rcx
+		mov eax, wSystemCall
+
+		syscall
+		ret
+	SysNtOpenProcessToken ENDP
+
+	SysNtClose PROC
+		mov r10, rcx
+		mov eax, wSystemCall
+
+		syscall
+		ret
+	SysNtClose ENDP
+
+	SysNtCreateFile PROC
+		mov r10, rcx
+		mov eax, wSystemCall
+
+		syscall
+		ret
+	SysNtCreateFile ENDP
+
+	SysNtWriteFile PROC
+		mov r10, rcx
+		mov eax, wSystemCall
+
+		syscall
+		ret
+	SysNtWriteFile ENDP
+
+	SysNtWaitForSingleObject PROC
+		mov r10, rcx
+		mov eax, wSystemCall
+
+		syscall
+		ret
+	SysNtWaitForSingleObject ENDP
+
+end
